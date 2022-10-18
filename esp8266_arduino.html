@@ -1,0 +1,93 @@
+<html>      
+<head>      
+    <title>Smart Home System</title>      
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>  
+ 
+    <style>  
+
+        .wrapper{  
+             width:500px;  
+             margin:0 auto;  
+        }  
+        .switch{  
+             width:200px;  
+             height:100px;  
+             background:#E5E5E5;  
+             z-index:0;  
+             margin:0;  
+             padding:0;  
+             appearance:none;  
+             border:none;  
+             cursor:pointer;  
+             position:relative;  
+             border-radius:100px;  
+            
+        }  
+
+        .switch:before{  
+             content: ' ';  
+             position:absolute;  
+             left:5px;  
+             top:5px;  
+             width:190px;  
+             height:90px;  
+             background:#ffffff;  
+             z-index:1;  
+             border-radius:95px;  
+        }  
+        .switch:after{  
+             content:' ';  
+             width:88px;  
+             height:88px;  
+             border-radius:86px;  
+             z-index:2;  
+             background:#FFFFFF;  
+             position:absolute;  
+             transition-duration:500ms;  
+             top:6px;  
+             left:6px;  
+             box-shadow:0 2px 5px #999999;  
+        }  
+        .switchOn, .switchOn:before{  
+             background:#4cd964; 
+             
+        }  
+        .switchOn:after{  
+             left:105px;   
+        }  
+        </style>  
+</head>    
+
+<body> 
+    <center>
+   
+     <h1>IoT Using ESP-01 and Arduino</h1>
+     <br>
+     <p style="font-size:20px;">Red color LED</p>     
+     <label><div id="111" class="switch switchOn"></div></label>
+     <br> 
+     <p style="font-size:20px;">Green color LED</p>   
+     <label><div id="121" class="switch switchOn"></div></label>
+
+</center>
+
+
+     <script>  
+          $(function() {
+          $('.switch').click(function() {
+          $(this).toggleClass("switchOn");
+          var i = $(this).attr("id").substr(0,2);
+          var s = $(this).attr("id").substr(2) == 1 ? "0" : "1";
+          var p = i + s;
+          var myData = {
+               pin: p
+          };
+          console.log("Setting Pin " + p);
+          $.get("YOURIPADDRESS", myData);
+          $(this).attr("id", p);
+          });
+          });
+     </script>  
+
+</body>      
+</html> 
